@@ -1,0 +1,125 @@
+---
+version: '3'
+
+services:
+
+  sabnzbd:
+    image: linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    hostname: sabnzbd
+    ports:
+      - "8080:8080"
+    volumes:
+      - ${CONFIG}/sabnzbd:/config
+      - ${DATA}/downloads:/data/downloads
+    environment:
+      - PGID
+      - PUID
+      - TZ
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    hostname: sonarr
+    ports:
+      - "8989:8989"
+    volumes:
+      - ${CONFIG}/sonarr:/config
+      - ${DATA}:/data
+    environment:
+      - PGID
+      - PUID
+      - TZ
+    restart: unless-stopped
+
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    hostname: radarr
+    ports:
+      - "7878:7878"
+    volumes:
+      - ${CONFIG}/radarr:/config
+      - ${DATA}:/data
+    environment:
+      - PGID
+      - PUID
+      - TZ
+    restart: unless-stopped
+
+  lidarr:
+    image: linuxserver/lidarr:latest
+    container_name: lidarr
+    hostname: lidarr
+    ports:
+      - "8686:8686"
+    volumes:
+      - ${CONFIG}/lidarr:/config
+      - ${DATA}:/data
+    environment:
+      - PGID
+      - PUID
+      - TZ
+    restart: unless-stopped
+
+  lazylibrarian:
+    image: linuxserver/lazylibrarian:latest
+    container_name: lazylibrarian
+    hostname: lazylibrarian
+    ports:
+      - "5299:5299"
+    volumes:
+      - ${CONFIG}/lazylibrarian:/config
+      - ${DATA}:/data
+    environment:
+      - PGID
+      - PUID
+      - TZ
+    restart: unless-stopped
+
+  mylar:
+    image: linuxserver/mylar:latest
+    container_name: mylar
+    hostname: mylar
+    ports:
+      - "8090:8090"
+    volumes:
+      - ${CONFIG}/mylar:/config
+      - ${DATA}:/data
+    environment:
+      - PGID
+      - PUID
+      - TZ
+    restart: unless-stopped
+
+  plex:
+    image: linuxserver/plex:latest
+    container_name: plex
+    hostname: plex
+    ports:
+      - "32400:32400"
+    volumes:
+      - ${CONFIG}/plex:/config
+      - ${DATA}:/data
+    environment:
+      - PGID
+      - PUID
+      - TZ
+    restart: unless-stopped
+
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    hostname: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ${CONFIG}/traefik:/config
+      - ${DATA}:/data
+    environment:
+      - PGID
+      - PUID
+      - TZ
+    restart: unless-stopped
